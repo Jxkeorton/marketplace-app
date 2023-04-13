@@ -1,11 +1,14 @@
 import React from 'react'
 import {getAuth, createUserWithEmailAndPassword, updateProfile} from 'firebase/auth'
+import {toast} from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css';
 import { db } from '../firebase.config'
 import {setDoc, doc, serverTimestamp} from 'firebase/firestore'
 import {useState} from 'react'
 import {Link, useNavigate} from 'react-router-dom'
 import {ReactComponent as ArrowRightIcon} from '../assets/svg/keyboardArrowRightIcon.svg' 
 import visibilityIcon from '../assets/svg/visibilityIcon.svg'
+import OAuth from '../components/OAuth';
 
 export default function SignUp() {
   const [showPassword, setShowPassword] = useState(false)
@@ -48,6 +51,7 @@ export default function SignUp() {
       navigate('/')
     } catch (error) {
       console.log(error)
+      toast.error('Something went wrong')
     }
   }
 
@@ -114,7 +118,7 @@ export default function SignUp() {
             </div>
           </form>
 
-          {/* Google Auth */}
+          <OAuth />
 
           <Link to='/sign-in' className='registerLink' >
             Sign In Instead
